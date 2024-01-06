@@ -8,6 +8,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -36,6 +37,6 @@ public class Person {
     private String department;
 
     @NotBlank
-    private int balance;
+    private long balance;
 }
 

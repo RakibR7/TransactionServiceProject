@@ -47,7 +47,7 @@ public class PersonController {
     }
 
     @PostMapping("/buynow")
-    public ResponseEntity<String> buyNow(@RequestParam Long personId, @RequestParam BigDecimal amount) {
+    public ResponseEntity<String> buyNow(@RequestParam Long personId, @RequestParam long amount) {
         String result = personService.processPurchase(personId, amount);
         if (result.equals("Purchase completed successfully")) {
             return ResponseEntity.ok(result);

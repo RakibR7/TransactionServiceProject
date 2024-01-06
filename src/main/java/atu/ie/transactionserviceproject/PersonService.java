@@ -2,7 +2,6 @@ package atu.ie.transactionserviceproject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
 @Service
@@ -25,16 +24,16 @@ public class PersonService {
     }
 
     @Transactional
-    public String processPurchase(Long personId, int purchaseAmount) {
+    public String processPurchase(Long personId, long purchaseAmount) {
         Person person = personRepo.findById(personId).orElse(null);
 
         if (person == null) {
             return "Customer not found";
         }
 
-        if (person.getBalance().compareTo(purchaseAmount) >= 0) {
+        if (person.getBalance() >=(purchaseAmount)) {
             // Subtract purchase amount from current balance
-            person.setBalance(person.getBalance().subtract(purchaseAmount));
+            person.setBalance(person.getBalance() - (purchaseAmount));
             personRepo.save(person);
 
             // Optionally, create a transaction record (not shown)
