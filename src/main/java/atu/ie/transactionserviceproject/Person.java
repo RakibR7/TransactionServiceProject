@@ -36,7 +36,6 @@ public class Person {
     @NotBlank
     private String department;
 
-    @NotBlank
     private long balance;
 }
 
