@@ -13,13 +13,13 @@ public class PersonController {
     private final PersonService personService;
     public PersonController(PersonService personService) { this.personService = personService; }
 
-    @GetMapping("/{employeeId}")
-    public ResponseEntity<?> getPerson(@PathVariable String employeeId) {
-        if (employeeId.length() > 5 || employeeId.isBlank()) {
-            return ResponseEntity.badRequest().body("EmployeeId is invalid");
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> getPersonByEmail(@PathVariable String email) {
+        if (email.isBlank() || !email.contains("@")) { // Basic email format validation
+            return ResponseEntity.badRequest().body("Invalid email format");
         }
 
-        Person person = personService.getPersonByEmployeeId(employeeId);
+        Person person = personService.getPersonByEmail(email);
 
         if (person == null) {
             return ResponseEntity.notFound().build();
@@ -28,27 +28,9 @@ public class PersonController {
         return ResponseEntity.ok(person);
     }
 
-    @GetMapping("/findAllPersons")
-    public ResponseEntity<?> getAllPersons() {
-
-        List<Person> persons = personService.getAllPersons();
-
-        if (persons == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(persons);
-    }
-
-    @PostMapping("/createPerson")
-    public ResponseEntity<String>create(@Valid @RequestBody Person person){
-        personService.savePerson(person);
-        return new ResponseEntity<>("person created successfully", HttpStatus.OK);
-    }
-
     @PostMapping("/buynow")
     public ResponseEntity<String> buyNow(@RequestBody PurchaseRequest purchaseRequest) {
-        String result = personService.processPurchase(purchaseRequest.getPersonId(), purchaseRequest.getAmount());
+        String result = personService.processPurchase(purchaseRequest.getEmail(), purchaseRequest.getAmount());
         if ("Purchase completed successfully".equals(result)) {
             return ResponseEntity.ok(result);
         } else {

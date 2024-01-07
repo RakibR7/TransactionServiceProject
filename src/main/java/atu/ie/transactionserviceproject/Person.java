@@ -17,13 +17,10 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Name cannot be blank")
-    @Size(min = 2, max = 50, message = "Name must be between 2 & 50 char")
-    private String name;
-    @Min(16)
-    private int age;
+
     @Email
     private String email;
+
     @NotBlank
     private String title;
 
