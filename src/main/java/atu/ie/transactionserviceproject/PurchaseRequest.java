@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PurchaseRequest {
-    private Long personId;
+    private String email;
     private long amount;
 }
