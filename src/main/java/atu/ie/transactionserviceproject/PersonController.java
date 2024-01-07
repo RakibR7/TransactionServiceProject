@@ -47,9 +47,9 @@ public class PersonController {
     }
 
     @PostMapping("/buynow")
-    public ResponseEntity<String> buyNow(@RequestParam Long personId, @RequestParam long amount) {
-        String result = personService.processPurchase(personId, amount);
-        if (result.equals("Purchase completed successfully")) {
+    public ResponseEntity<String> buyNow(@RequestBody PurchaseRequest purchaseRequest) {
+        String result = personService.processPurchase(purchaseRequest.getPersonId(), purchaseRequest.getAmount());
+        if ("Purchase completed successfully".equals(result)) {
             return ResponseEntity.ok(result);
         } else {
             return ResponseEntity.badRequest().body(result);

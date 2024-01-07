@@ -24,24 +24,20 @@ public class PersonService {
     }
 
     @Transactional
-    public String processPurchase(Long personId, long purchaseAmount) {
-        Person person = personRepo.findById(personId).orElse(null);
+    public String processPurchase(Long personId, long amount) {
+        // Find the person by ID
+        Person person = personRepo.findById(personId)
+                .orElseThrow(() -> new IllegalArgumentException("Person not found with ID: " + personId));
 
-        if (person == null) {
-            return "Customer not found";
-        }
-
-        if (person.getBalance() >=(purchaseAmount)) {
-            // Subtract purchase amount from current balance
-            person.setBalance(person.getBalance() - (purchaseAmount));
+        // Check if the person has enough balance for the purchase
+        if (person.getBalance() >= (amount)) {
+            // Subtract the purchase amount from the person's balance
+            person.setBalance(person.getBalance() - (amount));
+            // Save the updated person entity
             personRepo.save(person);
-
-            // Optionally, create a transaction record (not shown)
-
             return "Purchase completed successfully";
         } else {
             return "Insufficient funds";
         }
     }
-
 }
