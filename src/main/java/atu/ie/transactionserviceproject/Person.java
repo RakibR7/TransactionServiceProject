@@ -17,10 +17,10 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotBlank(message = "Name cannot be blank")
 
     @Email
     private String email;
+
     @NotBlank
     private String title;
 

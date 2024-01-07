@@ -12,6 +12,22 @@ import java.util.List;
 public class PersonController {
     private final PersonService personService;
     public PersonController(PersonService personService) { this.personService = personService; }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<?> getPersonByEmail(@PathVariable String email) {
+        if (email.isBlank() || !email.contains("@")) { // Basic email format validation
+            return ResponseEntity.badRequest().body("Invalid email format");
+        }
+
+        Person person = personService.getPersonByEmail(email);
+
+        if (person == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(person);
+    }
+
     @PostMapping("/buynow")
     public ResponseEntity<String> buyNow(@RequestBody PurchaseRequest purchaseRequest) {
         String result = personService.processPurchase(purchaseRequest.getEmail(), purchaseRequest.getAmount());

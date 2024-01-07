@@ -11,18 +11,7 @@ public class PersonService {
     public PersonService(PersonRepo personRepo) {
         this.personRepo = personRepo;
     }
-    /*
-    public void savePerson(Person person){
-        personRepo.save(person);
-    }
-    public Person getPersonByEmployeeId(String employeeId){
-        return personRepo.findByEmployeeId(employeeId);
-    }
 
-    public List<Person> getAllPersons() {
-        return personRepo.findAll();
-    }
-    */
     public Person getPersonByEmail(String email){
         return personRepo.findByEmail(email);
     }
@@ -30,8 +19,8 @@ public class PersonService {
     @Transactional      //this makes it so if the transaction fails anywhere it will undo everything, like a real transaction
     public String processPurchase(String email, long amount) {
         // Find the person by email
-        Person person = personRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Person not found with ID: " + email));
+        Person person = personRepo.findByEmail(email);
+                //.orElseThrow(() -> new IllegalArgumentException("Person not found with ID: " + email));    not working
         // Check if the person has enough balance for the purchase
         if (person.getBalance() >= (amount)) {
             person.setBalance(person.getBalance() - (amount));
