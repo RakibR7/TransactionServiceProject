@@ -17,9 +17,9 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Insert your test data here
-        Person testData = new Person(1L, "Paul", 23, "Paul@atu.ie", "Mr", "12345", "Lecturer", "Electronics",0);
-        Person testData2 = new Person(2L, "Jack", 24, "jacko@atu.ie","Mr", "123456", "Lecturer", "engineering",0);
-        Person testData3 = new Person(3L, "Santa", 70, "gift@atu.ie","Mrs", "1234567", "plumber", "factory",0);
+        Person testData = new Person(1, "Paul", 23, "Paul@atu.ie", "Mr", "12345", "Lecturer", "Electronics",100);
+        Person testData2 = new Person(2, "Jack", 24, "jacko@atu.ie","Mr", "123456", "Lecturer", "engineering",1000);
+        Person testData3 = new Person(3, "Santa", 70, "gift@atu.ie","Mrs", "1234567", "plumber", "factory",10);
 
         personRepository.save(testData);
         personRepository.save(testData2);

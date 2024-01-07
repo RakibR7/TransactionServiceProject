@@ -23,7 +23,7 @@ public class PersonService {
         return personRepo.findAll();
     }
 
-    @Transactional
+    @Transactional      //this makes it so if the transaction fails anywhere it will undo everything, like a real transaction
     public String processPurchase(Long personId, long amount) {
         // Find the person by ID
         Person person = personRepo.findById(personId)
