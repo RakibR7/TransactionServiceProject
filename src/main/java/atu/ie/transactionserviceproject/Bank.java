@@ -4,7 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,26 +13,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Person {
+public class Bank {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long BankId;
 
-    @Email
+    @Email(message = "Invalid email address")
     private String email;
 
-    @NotBlank
-    private String title;
-
-    @NotBlank
-    private String employeeId;
-
-    @NotBlank
-    private String position;
-
-    @NotBlank
-    private String department;
-
-    private long balance;
+    private float balance;
 }
-
