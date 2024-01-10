@@ -10,22 +10,29 @@ import java.util.Optional;
 @Service
 public class BankService {
     private final BankRepository bankRepo;
-
-
     @Autowired
     public BankService(BankRepository bankRepo) {
         this.bankRepo = bankRepo;
     }
     @Transactional
     public void createUser(Bank bank) {
-        System.out.println("This got called");
         bankRepo.save(bank);
     }
 
-    @Transactional
+
     public String buyProduct(PurchaseRequest purchaseRequest) {
-        Optional<Bank> buyerOptional = bankRepo.findByEmail(purchaseRequest.getBuyerEmail());
-        Optional<Bank> sellerOptional = bankRepo.findByEmail(purchaseRequest.getSellerEmail());
+        System.out.println(purchaseRequest.getBuyerEmail());
+        System.out.println(purchaseRequest.getSellerEmail());
+
+        String sellerEmail = purchaseRequest.getSellerEmail();
+        String buyerEmail = purchaseRequest.getBuyerEmail();
+
+
+        Optional<Bank> buyerOptional = bankRepo.findByEmail(buyerEmail);
+        Optional<Bank> sellerOptional = bankRepo.findByEmail(sellerEmail);
+
+        System.out.println("B:" + buyerOptional);
+        System.out.println("S:" + sellerOptional);
 
         Bank buyer = buyerOptional.orElseThrow(() -> new RuntimeException("Buyer not found"));
         Bank seller = sellerOptional.orElseThrow(() -> new RuntimeException("Seller not found"));
@@ -37,7 +44,7 @@ public class BankService {
             bankRepo.save(seller);
             return "Purchase completed successfully";
         } else {
-            return "Purchase Failed";
+            return "Purchase Failed not enough funds";
         }
     }
 
