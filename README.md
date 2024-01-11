@@ -6,6 +6,7 @@ This is for database ; using Microsoft Azure ; Azure data studio's (to view data
 
 ![image](https://github.com/RakibR7/TransactionServiceProject/assets/114908714/81501da3-0ff5-47d2-8fc1-4ab1921b4613)
 
+Password is:   Password1
 
 
 
